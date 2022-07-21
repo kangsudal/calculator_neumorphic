@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,19 +11,14 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return NeumorphicApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
+      themeMode: ThemeMode.light,
+      theme: NeumorphicThemeData(
+        baseColor: Color(0xFFE7EDEF),
+        lightSource: LightSource.topLeft,
+        depth: 5,
+        intensity: 0.6,
       ),
       home: const MyHomePage(),
     );
@@ -48,19 +44,19 @@ class MyHomePage extends StatelessWidget {
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 15.0),
-                      child: Placeholder(),
+                      child: ModeChangeWidget(),
                     ),
                     flex: 1,
                   ),
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.only(bottom: 15.0),
-                      child: Placeholder(),
+                      child: ShowCalculatingWidget(),
                     ),
                     flex: 3,
                   ),
                   Expanded(
-                    child: Placeholder(),
+                    child: InputButtons(),
                     flex: 6,
                   ),
                 ],
@@ -70,5 +66,75 @@ class MyHomePage extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+
+class ModeChangeWidget extends StatefulWidget {
+  const ModeChangeWidget({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  State<ModeChangeWidget> createState() => _ModeChangeWidgetState();
+}
+
+class _ModeChangeWidgetState extends State<ModeChangeWidget> {
+  int? groupValue = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        NeumorphicRadio(
+          groupValue: groupValue,
+          value: 0,
+          onChanged: (int? value) {
+            setState(() {
+              groupValue = value;
+            });
+          },
+          padding: EdgeInsets.all(8.0),
+          child: Text("Calculator"),
+        ),
+        SizedBox(width: 10,),
+        NeumorphicRadio(
+          groupValue: groupValue,
+          value: 1,
+          onChanged: (int? value) {
+            setState(() {
+              groupValue = value;
+            });
+          },
+          padding: EdgeInsets.all(8.0),
+          child: Text("Currency"),
+        ),
+      ],
+    );
+  }
+}
+
+class ShowCalculatingWidget extends StatelessWidget {
+  const ShowCalculatingWidget({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Neumorphic(
+      style: NeumorphicStyle(depth: -10,),
+      child: Container(),
+    );
+  }
+}
+
+class InputButtons extends StatelessWidget {
+  const InputButtons({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Placeholder();
   }
 }
