@@ -34,6 +34,41 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      body: SafeArea(
+        child: Stack(
+          children: [
+            Positioned(
+              left: 15,
+              right: 15,
+              bottom: 15,
+              top: 0,
+              child: Column(
+                children: [
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 15.0),
+                      child: Placeholder(),
+                    ),
+                    flex: 1,
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 15.0),
+                      child: Placeholder(),
+                    ),
+                    flex: 3,
+                  ),
+                  Expanded(
+                    child: Placeholder(),
+                    flex: 6,
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
