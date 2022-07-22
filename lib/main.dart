@@ -69,7 +69,6 @@ class MyHomePage extends StatelessWidget {
   }
 }
 
-
 class ModeChangeWidget extends StatefulWidget {
   const ModeChangeWidget({
     Key? key,
@@ -97,7 +96,9 @@ class _ModeChangeWidgetState extends State<ModeChangeWidget> {
           padding: EdgeInsets.all(8.0),
           child: Text("Calculator"),
         ),
-        SizedBox(width: 10,),
+        SizedBox(
+          width: 10,
+        ),
         NeumorphicRadio(
           groupValue: groupValue,
           value: 1,
@@ -122,19 +123,70 @@ class ShowCalculatingWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Neumorphic(
-      style: NeumorphicStyle(depth: -10,),
+      style: NeumorphicStyle(
+        depth: -10,
+      ),
       child: Container(),
     );
   }
 }
 
 class InputButtons extends StatelessWidget {
-  const InputButtons({
+  InputButtons({
     Key? key,
   }) : super(key: key);
 
+  List<Widget> calculatorKeyPadData = [
+    Text('C',style: TextStyle(color: Colors.white,),),
+    Text('%',style: TextStyle(color: Colors.white,),),
+    Icon(Icons.backspace,color: Colors.white,),
+    Text("÷",style: TextStyle(color: Colors.white,),),
+    Text('7'),
+    Text('8'),
+    Text('9'),
+    Text('X',style: TextStyle(color: Colors.white,),),
+    Text('4'),
+    Text('5'),
+    Text('6'),
+    Text('-',style: TextStyle(color: Colors.white,),),
+    Text('1'),
+    Text('2'),
+    Text('3'),
+    Text('+',style: TextStyle(color: Colors.white,),),
+    Text('00'),
+    Text('0'),
+    Text('.'),
+    Text('=',style: TextStyle(color: Colors.white,),),
+  ];
+
   @override
   Widget build(BuildContext context) {
-    return Placeholder();
+    return LayoutBuilder(
+      builder: (BuildContext context, BoxConstraints constraints) {
+        double keyPadHeight = constraints.maxHeight;
+        double keyPadWidth = constraints.maxWidth;
+        return GridView.builder(
+          itemCount: calculatorKeyPadData.length,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 4,
+            crossAxisSpacing: 10, //수평 패딩
+            mainAxisSpacing: 10, //수직 패딩
+            mainAxisExtent: (keyPadHeight / 5) - 10, //한 셀당 세로길이
+          ),
+          itemBuilder: (BuildContext context, int index) {
+            if (index == 0 || index == 1 || index == 2 || index == 3||index %4==3) {
+              return NeumorphicButton(
+                  style: NeumorphicStyle(color: Colors.black),
+                  onPressed: () {},
+                  child: Center(child: calculatorKeyPadData[index]));
+            } else {
+              return NeumorphicButton(
+                  onPressed: () {},
+                  child: Center(child: calculatorKeyPadData[index]));
+            }
+          },
+        );
+      },
+    );
   }
 }
