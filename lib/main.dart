@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       themeMode: ThemeMode.light,
       theme: NeumorphicThemeData(
-        baseColor: Color(0xFFE7EDEF),
+        baseColor: Color(0xFFDAE4E5),
         lightSource: LightSource.topLeft,
         depth: 5,
         intensity: 0.6,
@@ -124,7 +124,7 @@ class ShowCalculatingWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Neumorphic(
       style: NeumorphicStyle(
-        depth: -10,
+        depth: -20,
       ),
       child: Container(),
     );
@@ -137,26 +137,26 @@ class InputButtons extends StatelessWidget {
   }) : super(key: key);
 
   List<Widget> calculatorKeyPadData = [
-    Text('C',style: TextStyle(color: Colors.white,),),
-    Text('%',style: TextStyle(color: Colors.white,),),
-    Icon(Icons.backspace,color: Colors.white,),
-    Text("÷",style: TextStyle(color: Colors.white,),),
-    Text('7'),
-    Text('8'),
-    Text('9'),
-    Text('X',style: TextStyle(color: Colors.white,),),
-    Text('4'),
-    Text('5'),
-    Text('6'),
-    Text('-',style: TextStyle(color: Colors.white,),),
-    Text('1'),
-    Text('2'),
-    Text('3'),
-    Text('+',style: TextStyle(color: Colors.white,),),
-    Text('00'),
-    Text('0'),
-    Text('.'),
-    Text('=',style: TextStyle(color: Colors.white,),),
+    ClearButton(),
+    OperatorButton(value: "%",),
+    BackspaceButton(),
+    OperatorButton(value: "÷"),
+    NumberButton(value: 7,),
+    NumberButton(value: 8,),
+    NumberButton(value: 9,),
+    OperatorButton(value: 'X',),
+    NumberButton(value: 4),
+    NumberButton(value: 5),
+    NumberButton(value: 6),
+    OperatorButton(value: '-',),
+    NumberButton(value:1),
+    NumberButton(value: 2),
+    NumberButton(value: 3),
+    OperatorButton(value: '+',),
+    HundredButton(),
+    NumberButton(value:0),
+    OperatorButton(value: '.',),
+    EqualButton(),
   ];
 
   @override
@@ -174,19 +174,91 @@ class InputButtons extends StatelessWidget {
             mainAxisExtent: (keyPadHeight / 5) - 10, //한 셀당 세로길이
           ),
           itemBuilder: (BuildContext context, int index) {
-            if (index == 0 || index == 1 || index == 2 || index == 3||index %4==3) {
-              return NeumorphicButton(
-                  style: NeumorphicStyle(color: Colors.black),
-                  onPressed: () {},
-                  child: Center(child: calculatorKeyPadData[index]));
-            } else {
-              return NeumorphicButton(
-                  onPressed: () {},
-                  child: Center(child: calculatorKeyPadData[index]));
-            }
+
+            return calculatorKeyPadData[index];
+
           },
         );
       },
     );
   }
 }
+
+class NumberButton extends StatelessWidget {
+  NumberButton({Key? key,required this.value}) : super(key: key);
+
+  int value;
+  @override
+  Widget build(BuildContext context) {
+    return NeumorphicButton(
+        onPressed: () {},
+        child: Center(child: Text(value.toString())));
+  }
+}
+
+class OperatorButton extends StatelessWidget {
+  String value;
+
+  OperatorButton({Key? key,required this.value,}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+
+      return NeumorphicButton(
+          onPressed: () {},
+          style: NeumorphicStyle(color: Colors.black),
+          child: Center(child: Text(value,style: TextStyle(color: Colors.white),)));
+
+  }
+}
+class ClearButton extends StatelessWidget {
+  const ClearButton({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return NeumorphicButton(
+        onPressed: () {},
+    style: NeumorphicStyle(color: Colors.black),
+    child: Center(child: Text("C",style: TextStyle(color: Colors.white,),)));
+  }
+}
+class BackspaceButton extends StatelessWidget {
+
+  BackspaceButton({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+
+      return NeumorphicButton(
+          onPressed: () {},
+          style: NeumorphicStyle(color: Colors.black),
+          child: Center(child: Icon(Icons.backspace,color: Colors.white,)));
+
+  }
+}
+
+class EqualButton extends StatelessWidget {
+  const EqualButton({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return NeumorphicButton(
+        onPressed: () {},
+        style: NeumorphicStyle(color: Colors.black),
+        child: Center(child: Text("=",style: TextStyle(color: Colors.white,),)));
+  }
+}
+
+
+class HundredButton extends StatelessWidget {
+  const HundredButton({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return NeumorphicButton(
+        onPressed: () {},
+        style: NeumorphicStyle(color: Colors.black),
+        child: Center(child: Text("00",style: TextStyle(color: Colors.white,))));
+  }
+}
+
