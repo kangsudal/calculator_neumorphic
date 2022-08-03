@@ -14,8 +14,8 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<FiveCal>(
-      create: (context)=>FiveCal(),
+    return ChangeNotifierProvider<Calculator>(
+      create: (context)=>Calculator(),
       child: NeumorphicApp(
         title: 'Flutter Demo',
         themeMode: ThemeMode.light,
@@ -135,7 +135,7 @@ class ShowCalculatingWidget extends StatelessWidget {
           child: Align(
             alignment: Alignment.bottomRight,
             child: Text(
-              Provider.of<FiveCal>(context).amount,
+              Provider.of<Calculator>(context).amount,
               style: TextStyle(
                 fontSize: 40,
               ),
@@ -160,31 +160,31 @@ class InputButtons extends StatelessWidget {
     BackspaceButton(),
     OperatorButton(label: "÷"),
     NumberButton(
-      value: 7,
+      value: '7',
     ),
     NumberButton(
-      value: 8,
+      value: '8',
     ),
     NumberButton(
-      value: 9,
+      value: '9',
     ),
     OperatorButton(
       label: 'x',
     ),
-    NumberButton(value: 4),
-    NumberButton(value: 5),
-    NumberButton(value: 6),
+    NumberButton(value: '4'),
+    NumberButton(value: '5'),
+    NumberButton(value: '6'),
     OperatorButton(
       label: '-',
     ),
-    NumberButton(value: 1),
-    NumberButton(value: 2),
-    NumberButton(value: 3),
+    NumberButton(value: '1'),
+    NumberButton(value: '2'),
+    NumberButton(value: '3'),
     OperatorButton(
       label: '+',
     ),
     HundredButton(),
-    NumberButton(value: 0),
+    NumberButton(value: '0'),
     DecimalPointButton(),
     EqualButton(),
   ];

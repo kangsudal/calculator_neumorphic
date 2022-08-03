@@ -6,16 +6,16 @@ import 'package:provider/provider.dart';
 class NumberButton extends StatelessWidget {
   NumberButton({Key? key, required this.value}) : super(key: key);
 
-  int value;
+  String value;
   @override
   Widget build(BuildContext context) {
     return NeumorphicButton(
       onPressed: () {
-        Provider.of<FiveCal>(context,listen: false).onKeyTap(value.toString());
+        Provider.of<Calculator>(context, listen: false).onKeyTap(value);
       },
       child: Center(
         child: Text(
-          value.toString(),
+          value,
           style: TextStyle(
             fontSize: 25,
             fontFamily: 'Orbitron',
@@ -37,7 +37,27 @@ class OperatorButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return NeumorphicButton(
-      onPressed: () {},
+      onPressed: () {
+        switch (label) {
+          case '%':
+            Provider.of<Calculator>(context, listen: false).percent();
+            break;
+          case '÷':
+            Provider.of<Calculator>(context, listen: false).divide();
+            break;
+
+          case 'X':
+            Provider.of<Calculator>(context, listen: false).mult();
+            break;
+
+          case '-':
+            Provider.of<Calculator>(context, listen: false).subtraction();
+            break;
+          case '+':
+            Provider.of<Calculator>(context, listen: false).add();
+            break;
+        }
+      },
       style: NeumorphicStyle(color: Colors.black),
       child: Center(
         child: Text(
@@ -59,7 +79,9 @@ class ClearButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return NeumorphicButton(
-      onPressed: () {},
+      onPressed: () {
+        Provider.of<Calculator>(context, listen: false).onClearPress();
+      },
       style: NeumorphicStyle(color: Colors.black),
       child: Center(
         child: Text(
@@ -81,7 +103,9 @@ class BackspaceButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return NeumorphicButton(
-      onPressed: () {},
+      onPressed: () {
+        Provider.of<Calculator>(context, listen: false).onBackspacePress();
+      },
       style: NeumorphicStyle(color: Colors.black),
       child: Center(
         child: Icon(
@@ -99,7 +123,9 @@ class EqualButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return NeumorphicButton(
-      onPressed: () {},
+      onPressed: () {
+        Provider.of<Calculator>(context, listen: false).equal();
+      },
       style: NeumorphicStyle(color: Colors.black),
       child: Center(
         child: Text(
@@ -121,7 +147,7 @@ class HundredButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return NeumorphicButton(
-      onPressed: () {},
+      onPressed: () {Provider.of<Calculator>(context, listen: false).hundred();},
       child: Center(
         child: Text(
           "00",
