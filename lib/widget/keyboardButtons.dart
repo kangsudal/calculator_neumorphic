@@ -1,5 +1,7 @@
+import 'package:calculator/model/calculator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:provider/provider.dart';
 
 class NumberButton extends StatelessWidget {
   NumberButton({Key? key, required this.value}) : super(key: key);
@@ -8,7 +10,9 @@ class NumberButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return NeumorphicButton(
-      onPressed: () {},
+      onPressed: () {
+        Provider.of<FiveCal>(context,listen: false).onKeyTap(value.toString());
+      },
       child: Center(
         child: Text(
           value.toString(),

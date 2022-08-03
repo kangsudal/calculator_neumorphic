@@ -1,6 +1,8 @@
+import 'package:calculator/model/calculator.dart';
 import 'package:calculator/widget/keyboardButtons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,16 +14,19 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return NeumorphicApp(
-      title: 'Flutter Demo',
-      themeMode: ThemeMode.light,
-      theme: NeumorphicThemeData(
-        baseColor: Color(0xFFF0F1F6),
-        lightSource: LightSource.topLeft,
-        depth: 5,
-        intensity: 0.6,
+    return ChangeNotifierProvider<FiveCal>(
+      create: (context)=>FiveCal(),
+      child: NeumorphicApp(
+        title: 'Flutter Demo',
+        themeMode: ThemeMode.light,
+        theme: NeumorphicThemeData(
+          baseColor: Color(0xFFF0F1F6),
+          lightSource: LightSource.topLeft,
+          depth: 5,
+          intensity: 0.6,
+        ),
+        home: const MyHomePage(),
       ),
-      home: const MyHomePage(),
     );
   }
 }
@@ -130,7 +135,7 @@ class ShowCalculatingWidget extends StatelessWidget {
           child: Align(
             alignment: Alignment.bottomRight,
             child: Text(
-              '0',
+              Provider.of<FiveCal>(context).amount,
               style: TextStyle(
                 fontSize: 40,
               ),
