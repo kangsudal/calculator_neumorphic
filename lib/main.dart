@@ -63,9 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 index: Provider.of<PageData>(context).pageIndex,
                 children: [
                   PureCalculatorWidget(),
-                  Container(
-                    color: Colors.blueAccent,
-                  ),
+                  CurrencyExchangeWidget(),
                 ],
               ),
             ),
@@ -75,6 +73,27 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+
+class CurrencyExchangeWidget extends StatelessWidget {
+  const CurrencyExchangeWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Expanded(
+          child: ModeChangeWidget(),
+          flex: 1,
+        ),
+        Expanded(
+          child: Container(color: Colors.blue,),
+          flex: 9,
+        ),
+      ],
+    );
+  }
+}
+
 
 class PureCalculatorWidget extends StatelessWidget {
   const PureCalculatorWidget({
@@ -115,10 +134,10 @@ class ModeChangeWidget extends StatefulWidget {
 }
 
 class _ModeChangeWidgetState extends State<ModeChangeWidget> {
-  int? groupValue = 0;
 
   @override
   Widget build(BuildContext context) {
+    int? groupValue = Provider.of<PageData>(context).pageIndex;
     return Row(
       children: [
         NeumorphicRadio(
