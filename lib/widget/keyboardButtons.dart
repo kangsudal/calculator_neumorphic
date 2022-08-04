@@ -38,25 +38,7 @@ class OperatorButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return NeumorphicButton(
       onPressed: () {
-        switch (label) {
-          case '%':
-            Provider.of<Calculator>(context, listen: false).percent();
-            break;
-          case '÷':
-            Provider.of<Calculator>(context, listen: false).divide();
-            break;
-
-          case 'X':
-            Provider.of<Calculator>(context, listen: false).mult();
-            break;
-
-          case '-':
-            Provider.of<Calculator>(context, listen: false).subtraction();
-            break;
-          case '+':
-            Provider.of<Calculator>(context, listen: false).add();
-            break;
-        }
+        Provider.of<Calculator>(context, listen: false).onKeyTap(label);
       },
       style: NeumorphicStyle(color: Colors.black),
       child: Center(
@@ -132,46 +114,6 @@ class EqualButton extends StatelessWidget {
           "=",
           style: TextStyle(
             color: Colors.white,
-            fontSize: 25,
-            fontFamily: 'Orbitron',
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class HundredButton extends StatelessWidget {
-  const HundredButton({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return NeumorphicButton(
-      onPressed: () {Provider.of<Calculator>(context, listen: false).hundred();},
-      child: Center(
-        child: Text(
-          "00",
-          style: TextStyle(
-            fontSize: 25,
-            fontFamily: 'Orbitron',
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class DecimalPointButton extends StatelessWidget {
-  const DecimalPointButton({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return NeumorphicButton(
-      onPressed: () {},
-      child: Center(
-        child: Text(
-          ".",
-          style: TextStyle(
             fontSize: 25,
             fontFamily: 'Orbitron',
           ),

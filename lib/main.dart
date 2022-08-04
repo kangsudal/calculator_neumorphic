@@ -130,17 +130,34 @@ class ShowCalculatingWidget extends StatelessWidget {
         depth: -20,
       ),
       child: SizedBox.expand(
-        child: Container(
-          padding: EdgeInsets.all(20),
-          child: Align(
-            alignment: Alignment.bottomRight,
-            child: Text(
-              Provider.of<Calculator>(context).amount,
-              style: TextStyle(
-                fontSize: 40,
+        child: Column(
+          children: [
+            Container(
+              padding: EdgeInsets.all(20),
+              child: Align(
+                alignment: Alignment.bottomRight,
+                child: Text(
+                  Provider.of<Calculator>(context).result,
+                  style: TextStyle(
+                    fontSize: 40,
+                  ),
+                ), //todo: 커스텀 키보드 만들기
               ),
-            ), //todo: 커스텀 키보드 만들기
-          ),
+            ),
+            Container(
+              padding: EdgeInsets.all(20),
+              child: Align(
+                alignment: Alignment.bottomRight,
+                child: Text(
+                  Provider.of<Calculator>(context).equation,
+                  style: TextStyle(
+                    fontSize: 40,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                ), //todo: 커스텀 키보드 만들기
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -183,9 +200,9 @@ class InputButtons extends StatelessWidget {
     OperatorButton(
       label: '+',
     ),
-    HundredButton(),
+    NumberButton(value: '00'),
     NumberButton(value: '0'),
-    DecimalPointButton(),
+    NumberButton(value: '.'),
     EqualButton(),
   ];
 
