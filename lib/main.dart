@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<Calculator>(
-      create: (context)=>Calculator(),
+      create: (context) => Calculator(),
       child: NeumorphicApp(
         title: 'Flutter Demo',
         themeMode: ThemeMode.light,
@@ -137,10 +137,12 @@ class ShowCalculatingWidget extends StatelessWidget {
               child: Align(
                 alignment: Alignment.bottomRight,
                 child: Text(
-                  Provider.of<Calculator>(context).result,
+                  Provider.of<Calculator>(context).equation,
                   style: TextStyle(
-                    fontSize: 40,
+                    fontSize: 30,
+                    color: Colors.grey,
                   ),
+                  overflow: TextOverflow.ellipsis,
                 ), //todo: 커스텀 키보드 만들기
               ),
             ),
@@ -149,7 +151,7 @@ class ShowCalculatingWidget extends StatelessWidget {
               child: Align(
                 alignment: Alignment.bottomRight,
                 child: Text(
-                  Provider.of<Calculator>(context).equation,
+                  Provider.of<Calculator>(context).result,
                   style: TextStyle(
                     fontSize: 40,
                   ),

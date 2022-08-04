@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:math_expressions/math_expressions.dart';
 
 class Calculator with ChangeNotifier {
   String equation = '0';
   String result = '0';
-  // String expression = '';
+  String expression = '';
 
   onKeyTap(String val) {
     if (equation == '0') {
@@ -30,6 +31,21 @@ class Calculator with ChangeNotifier {
   }
 
   equal() {
+    expression = equation;
+    expression = expression.replaceAll("x", "*");
+    expression = expression.replaceAll("÷", "/");
+    expression = expression.replaceAll("%", "/100");
+
+    try {
+      Parser p = Parser();
+      Expression exp = p.parse(expression);
+      ContextModel cm = ContextModel();
+      double eval = exp.evaluate(EvaluationType.REAL, cm);
+      result = "$eval";
+    } catch (e) {
+      result = "Error";
+    }
+
     notifyListeners();
   }
 }
