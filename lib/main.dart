@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:provider/provider.dart';
 
+import 'model/pageData.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -14,8 +16,15 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<Calculator>(
-      create: (context) => Calculator(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<Calculator>(
+          create: (context) => Calculator(),
+        ),
+        ChangeNotifierProvider<PageData>(
+          create: (coontext) => PageData(),
+        ),
+      ],
       child: NeumorphicApp(
         title: 'Flutter Demo',
         themeMode: ThemeMode.light,
@@ -31,9 +40,14 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
 
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,22 +59,12 @@ class MyHomePage extends StatelessWidget {
               right: 18,
               bottom: 15,
               top: 0,
-              child: Column(
+              child: IndexedStack(
+                index: Provider.of<PageData>(context).pageIndex,
                 children: [
-                  Expanded(
-                    child: ModeChangeWidget(),
-                    flex: 1,
-                  ),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.only(bottom: 20.0),
-                      child: ShowCalculatingWidget(),
-                    ),
-                    flex: 3,
-                  ),
-                  Expanded(
-                    child: InputButtons(),
-                    flex: 6,
+                  PureCalculatorWidget(),
+                  Container(
+                    color: Colors.blueAccent,
                   ),
                 ],
               ),
@@ -68,6 +72,35 @@ class MyHomePage extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class PureCalculatorWidget extends StatelessWidget {
+  const PureCalculatorWidget({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Expanded(
+          child: ModeChangeWidget(),
+          flex: 1,
+        ),
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.only(bottom: 20.0),
+            child: ShowCalculatingWidget(),
+          ),
+          flex: 3,
+        ),
+        Expanded(
+          child: InputButtons(),
+          flex: 6,
+        ),
+      ],
     );
   }
 }
@@ -94,6 +127,7 @@ class _ModeChangeWidgetState extends State<ModeChangeWidget> {
           onChanged: (int? value) {
             setState(() {
               groupValue = value;
+              Provider.of<PageData>(context,listen: false).setPageIndex(value!);
             });
           },
           padding: EdgeInsets.all(8.0),
@@ -108,6 +142,7 @@ class _ModeChangeWidgetState extends State<ModeChangeWidget> {
           onChanged: (int? value) {
             setState(() {
               groupValue = value;
+              Provider.of<PageData>(context,listen: false).setPageIndex(value!);
             });
           },
           padding: EdgeInsets.all(8.0),
