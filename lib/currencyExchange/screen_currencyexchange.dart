@@ -44,8 +44,8 @@ class CurrencyExchangeWidget extends StatelessWidget {
       double parentHeight = constraints.maxHeight * 0.6;
       double parentWidth = constraints.maxWidth;
 
-      print("keypad maxHeight:${constraints.maxHeight}");
-      print("keypad maxWidth:${constraints.maxWidth}");
+      // print("keypad maxHeight:${constraints.maxHeight}");
+      // print("keypad maxWidth:${constraints.maxWidth}");
       return Column(
         children: [
           Expanded(
