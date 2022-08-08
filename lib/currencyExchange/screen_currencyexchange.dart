@@ -1,5 +1,7 @@
+import 'package:calculator/model/currencyexchange.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:provider/provider.dart';
 
 import '../commonWidget/radioWidget.dart';
 
@@ -54,52 +56,52 @@ class _CurrencyExchangeWidgetState extends State<CurrencyExchangeWidget> {
               Expanded(
                 child: Row(children: [
                   Expanded(
-                    child: buildButton("7", Colors.white),
+                    child: buildButton("7", Colors.white, context),
                   ),
                   Expanded(
-                    child: buildButton("8", Colors.white),
+                    child: buildButton("8", Colors.white, context),
                   ),
                   Expanded(
-                    child: buildButton("9", Colors.white),
-                  ),
-                ]),
-              ),
-              Expanded(
-                child: Row(children: [
-                  Expanded(
-                    child: buildButton("4", Colors.white),
-                  ),
-                  Expanded(
-                    child: buildButton("5", Colors.white),
-                  ),
-                  Expanded(
-                    child: buildButton("6", Colors.white),
+                    child: buildButton("9", Colors.white, context),
                   ),
                 ]),
               ),
               Expanded(
                 child: Row(children: [
                   Expanded(
-                    child: buildButton("1", Colors.white),
+                    child: buildButton("4", Colors.white, context),
                   ),
                   Expanded(
-                    child: buildButton("2", Colors.white),
+                    child: buildButton("5", Colors.white, context),
                   ),
                   Expanded(
-                    child: buildButton("3", Colors.white),
+                    child: buildButton("6", Colors.white, context),
                   ),
                 ]),
               ),
               Expanded(
                 child: Row(children: [
                   Expanded(
-                    child: buildButton("00", Colors.white),
+                    child: buildButton("1", Colors.white, context),
                   ),
                   Expanded(
-                    child: buildButton("0", Colors.white),
+                    child: buildButton("2", Colors.white, context),
                   ),
                   Expanded(
-                    child: buildButton(".", Colors.white),
+                    child: buildButton("3", Colors.white, context),
+                  ),
+                ]),
+              ),
+              Expanded(
+                child: Row(children: [
+                  Expanded(
+                    child: buildButton("00", Colors.white, context),
+                  ),
+                  Expanded(
+                    child: buildButton("0", Colors.white, context),
+                  ),
+                  Expanded(
+                    child: buildButton(".", Colors.white, context),
                   ),
                 ]),
               ),
@@ -116,10 +118,10 @@ class _CurrencyExchangeWidgetState extends State<CurrencyExchangeWidget> {
           child: Column(
             children: [
               Expanded(
-                child: buildButton(Icons.backspace, Colors.black),
+                child: buildButton(Icons.backspace, Colors.black, context),
               ),
               Expanded(
-                child: buildButton("C", Colors.black),
+                child: buildButton("C", Colors.black, context),
               ),
               Expanded(
                 child: Container(),
@@ -147,10 +149,10 @@ class _CurrencyExchangeWidgetState extends State<CurrencyExchangeWidget> {
         child: Column(
           children: [
             Expanded(
-              child: buildInputPanel(),
+              child: buildInputPanel(context),
             ),
             Expanded(
-              child: buildResultPanel(),
+              child: buildResultPanel(context),
             ),
           ],
         ),
@@ -158,8 +160,9 @@ class _CurrencyExchangeWidgetState extends State<CurrencyExchangeWidget> {
     );
   }
 
-  Container buildInputPanel() {
-    String dropdownValue = 'Dollar AS USD';
+  Container buildInputPanel(BuildContext context) {
+    String dropdownValue = Provider.of<CurrencyExchange>(context).inputCurrency;
+    String inputString = Provider.of<CurrencyExchange>(context).inputString;
     return Container(
       color: Colors.blueGrey,
       child: Row(
@@ -190,7 +193,7 @@ class _CurrencyExchangeWidgetState extends State<CurrencyExchangeWidget> {
             child: Center(
               child: Container(
                 // color: Colors.red,
-                child: Text("100"),
+                child: Text(inputString),
               ),
             ),
           ),
@@ -199,8 +202,9 @@ class _CurrencyExchangeWidgetState extends State<CurrencyExchangeWidget> {
     );
   }
 
-  Container buildResultPanel() {
-    String dropdownValue = 'Indonesia IDR';
+  Container buildResultPanel(BuildContext context) {
+    String dropdownValue = Provider.of<CurrencyExchange>(context).resultCurrency;
+    String resultString = Provider.of<CurrencyExchange>(context).resultString;
     return Container(
       color: Colors.grey,
       child: Row(
@@ -231,7 +235,7 @@ class _CurrencyExchangeWidgetState extends State<CurrencyExchangeWidget> {
             child: Center(
               child: Container(
                 // color: Colors.red,
-                child: Text("100"),
+                child: Text(resultString),
               ),
             ),
           ),
@@ -240,12 +244,16 @@ class _CurrencyExchangeWidgetState extends State<CurrencyExchangeWidget> {
     );
   }
 
-  Widget buildButton(dynamic buttonContent, Color buttonColor) {
+  Widget buildButton(dynamic buttonContent, Color buttonColor, BuildContext context) {
     return Container(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: NeumorphicButton(
-          onPressed: () {},
+          onPressed: () {
+            //inputValue값이 바뀐다
+            Provider.of<CurrencyExchange>(context,listen:false).buttonPressed(buttonContent);
+            //inputValue에 따라 resultValue값도 바뀐다.
+          },
           child: buttonContent.runtimeType == IconData
               ? Center(
                   child: Icon(
@@ -272,6 +280,7 @@ class _CurrencyExchangeWidgetState extends State<CurrencyExchangeWidget> {
   }
 
   DropdownButtonHideUnderline buildDropdownButton(String dropdownValue) {
+    List<String> currencyList = ['Dollar AS USD', 'Indonesia IDR', 'Two', 'Free', 'Four'];
     return DropdownButtonHideUnderline(
       child: DropdownButton<String>(
         value: dropdownValue,
@@ -286,7 +295,7 @@ class _CurrencyExchangeWidgetState extends State<CurrencyExchangeWidget> {
             dropdownValue = newValue!;
           });
         },
-        items: <String>['Dollar AS USD', 'Indonesia IDR', 'Two', 'Free', 'Four']
+        items: currencyList
             .map<DropdownMenuItem<String>>((String value) {
           return DropdownMenuItem<String>(
             value: value,
@@ -296,4 +305,6 @@ class _CurrencyExchangeWidgetState extends State<CurrencyExchangeWidget> {
       ),
     );
   }
+
+
 }

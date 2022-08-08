@@ -1,4 +1,5 @@
 import 'package:calculator/model/calculator.dart';
+import 'package:calculator/model/currencyexchange.dart';
 import 'package:calculator/pureCalculator/screen_purecalculator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
@@ -23,7 +24,10 @@ class MyApp extends StatelessWidget {
           create: (context) => Calculator(),
         ),
         ChangeNotifierProvider<PageData>(
-          create: (coontext) => PageData(),
+          create: (context) => PageData(),
+        ),
+        ChangeNotifierProvider<CurrencyExchange>(
+          create: (context) => CurrencyExchange(),
         ),
       ],
       child: NeumorphicApp(
