@@ -164,7 +164,7 @@ class _CurrencyExchangeWidgetState extends State<CurrencyExchangeWidget> {
     String dropdownValue = Provider.of<CurrencyExchange>(context).inputCurrency;
     String inputString = Provider.of<CurrencyExchange>(context).inputString;
     return Container(
-      color: Colors.blueGrey,
+      // color: Colors.blueGrey,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -206,7 +206,7 @@ class _CurrencyExchangeWidgetState extends State<CurrencyExchangeWidget> {
     String dropdownValue = Provider.of<CurrencyExchange>(context).resultCurrency;
     String resultString = Provider.of<CurrencyExchange>(context).resultString;
     return Container(
-      color: Colors.grey,
+      // color: Colors.grey,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
