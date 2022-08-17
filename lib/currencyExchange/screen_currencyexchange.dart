@@ -273,7 +273,7 @@ class _CurrencyExchangeWidgetState extends State<CurrencyExchangeWidget> {
                     ),
                   ),
                 ),
-          style: NeumorphicStyle(color: buttonColor),
+          style: buttonColor == Colors.black?NeumorphicStyle(color: buttonColor):NeumorphicStyle(),
         ),
       ),
     );
