@@ -2,7 +2,8 @@ import 'package:calculator/model/currencyexchange.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:provider/provider.dart';
-
+import 'package:currency_picker/currency_picker.dart';
+import 'package:country_icons/country_icons.dart';
 import '../commonWidget/radioWidget.dart';
 
 class CurrencyExchangeWidget extends StatefulWidget {
@@ -175,7 +176,13 @@ class _CurrencyExchangeWidgetState extends State<CurrencyExchangeWidget> {
               child: Container(
                 padding: EdgeInsets.only(right: 5),
                 // color: Colors.white,
-                child: CircleAvatar(),
+                child: Neumorphic(
+                  style: NeumorphicStyle(boxShape: NeumorphicBoxShape.circle(),shape: NeumorphicShape.convex),
+                  child:
+                     Image.asset('icons/flags/png/kr.png',
+                        package: 'country_icons'),
+
+                ),
               ),
             ),
           ),
@@ -184,7 +191,7 @@ class _CurrencyExchangeWidgetState extends State<CurrencyExchangeWidget> {
             child: Center(
               child: Container(
                 // color: Colors.blue,
-                child: buildDropdownButton(dropdownValue),
+                child: Text('KRW'),
               ),
             ),
           ),
@@ -203,7 +210,8 @@ class _CurrencyExchangeWidgetState extends State<CurrencyExchangeWidget> {
   }
 
   Container buildResultPanel(BuildContext context) {
-    String dropdownValue = Provider.of<CurrencyExchange>(context).resultCurrency;
+    String dropdownValue =
+        Provider.of<CurrencyExchange>(context).resultCurrency;
     String resultString = Provider.of<CurrencyExchange>(context).resultString;
     return Container(
       // color: Colors.grey,
@@ -217,7 +225,13 @@ class _CurrencyExchangeWidgetState extends State<CurrencyExchangeWidget> {
               child: Container(
                 padding: EdgeInsets.only(right: 5),
                 // color: Colors.white,
-                child: CircleAvatar(),
+                child: Neumorphic(
+                  style: NeumorphicStyle(boxShape: NeumorphicBoxShape.circle(),shape: NeumorphicShape.convex),
+                  child:
+                  Image.asset('icons/flags/png/kr.png',
+                      package: 'country_icons'),
+
+                ),
               ),
             ),
           ),
@@ -226,7 +240,31 @@ class _CurrencyExchangeWidgetState extends State<CurrencyExchangeWidget> {
             child: Center(
               child: Container(
                 // color: Colors.blue,
-                child: buildDropdownButton(dropdownValue),
+                child: ElevatedButton(
+                  onPressed: () {
+                    showCurrencyPicker(
+                      context: context,
+                      showFlag: true,
+                      showCurrencyName: true,
+                      showCurrencyCode: true,
+                      onSelect: (Currency currency) {
+                        print('Select currency: ${currency.name}');
+                      },
+                      currencyFilter: <String>[
+                        'EUR',
+                        'GBP',
+                        'USD',
+                        'AUD',
+                        'CAD',
+                        'JPY',
+                        'HKD',
+                        'CHF',
+                        'SEK',
+                      ],
+                    );
+                  },
+                  child: Text('Show currency picker'),
+                ),
               ),
             ),
           ),
@@ -244,14 +282,16 @@ class _CurrencyExchangeWidgetState extends State<CurrencyExchangeWidget> {
     );
   }
 
-  Widget buildButton(dynamic buttonContent, Color buttonColor, BuildContext context) {
+  Widget buildButton(
+      dynamic buttonContent, Color buttonColor, BuildContext context) {
     return Container(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: NeumorphicButton(
           onPressed: () {
             //inputValue값이 바뀐다
-            Provider.of<CurrencyExchange>(context,listen:false).buttonPressed(buttonContent);
+            Provider.of<CurrencyExchange>(context, listen: false)
+                .buttonPressed(buttonContent);
             //inputValue에 따라 resultValue값도 바뀐다.
           },
           child: buttonContent.runtimeType == IconData
@@ -273,38 +313,11 @@ class _CurrencyExchangeWidgetState extends State<CurrencyExchangeWidget> {
                     ),
                   ),
                 ),
-          style: buttonColor == Colors.black?NeumorphicStyle(color: buttonColor):NeumorphicStyle(),
+          style: buttonColor == Colors.black
+              ? NeumorphicStyle(color: buttonColor)
+              : NeumorphicStyle(),
         ),
       ),
     );
   }
-
-  DropdownButtonHideUnderline buildDropdownButton(String dropdownValue) {
-    List<String> currencyList = ['Dollar AS USD', 'Indonesia IDR', 'Two', 'Free', 'Four'];
-    return DropdownButtonHideUnderline(
-      child: DropdownButton<String>(
-        value: dropdownValue,
-        icon: const Icon(
-          Icons.navigate_next,
-          color: Colors.black,
-        ),
-        elevation: 16,
-        style: const TextStyle(color: Colors.black45),
-        onChanged: (String? newValue) {
-          setState(() {
-            dropdownValue = newValue!;
-          });
-        },
-        items: currencyList
-            .map<DropdownMenuItem<String>>((String value) {
-          return DropdownMenuItem<String>(
-            value: value,
-            child: Text(value),
-          );
-        }).toList(),
-      ),
-    );
-  }
-
-
 }
