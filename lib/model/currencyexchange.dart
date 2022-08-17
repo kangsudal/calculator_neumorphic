@@ -12,7 +12,7 @@ class CurrencyExchange with ChangeNotifier {
     if (buttonContent == "C") {
       inputString = '0';
       resultString = '0';
-    } else if (buttonContent == IconData) {
+    } else if (buttonContent.runtimeType == IconData) {
       inputString = inputString.substring(0, inputString.length - 1);
       if (inputString == '') {
         inputString = '0';
