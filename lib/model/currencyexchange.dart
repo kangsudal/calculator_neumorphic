@@ -39,8 +39,9 @@ class CurrencyExchange with ChangeNotifier {
   }
 
   double exchange(double eval, String inputCurrency, String resultCurrency) {
+    double tts = 1304.79;//전신환(송금)보내실때 환율
     //환전로직
 
-    return eval*1304.79;
+    return eval*tts;
   }
 }

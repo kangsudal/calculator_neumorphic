@@ -4,11 +4,12 @@ import 'package:calculator/screen/pureCalculator/screen_purecalculator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:provider/provider.dart';
-
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:calculator/screen/currencyExchange/screen_currencyexchange.dart';
 import 'model/pageData.dart';
 
-void main() {
+void main() async{
+  await dotenv.load(fileName: '.env');
   runApp(const MyApp());
 }
 
