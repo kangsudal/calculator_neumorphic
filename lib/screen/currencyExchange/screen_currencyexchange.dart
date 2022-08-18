@@ -252,12 +252,12 @@ class _CurrencyExchangeWidgetState extends State<CurrencyExchangeWidget> {
                         print('Select currency: ${currency.code}');
                       },
                       currencyFilter: <String>[
-                        'EUR',
+                        // 'EUR', TODO: EUR 국기 처리
                         'GBP',
                         'USD',
                         'AUD',
                         'CAD',
-                        'JPY',
+                        // 'JPY', TODO: 한국수출입은행 JPY(100)에 맞게 처리
                         'HKD',
                         'CHF',
                         'SEK',
