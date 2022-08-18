@@ -4,7 +4,7 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:provider/provider.dart';
 import 'package:currency_picker/currency_picker.dart';
 import 'package:country_icons/country_icons.dart';
-import '../commonWidget/radioWidget.dart';
+import 'package:calculator/screen/commonWidget/radioWidget.dart';
 
 class CurrencyExchangeWidget extends StatefulWidget {
   const CurrencyExchangeWidget({Key? key}) : super(key: key);
@@ -177,11 +177,13 @@ class _CurrencyExchangeWidgetState extends State<CurrencyExchangeWidget> {
                 padding: EdgeInsets.only(right: 5),
                 // color: Colors.white,
                 child: Neumorphic(
-                  style: NeumorphicStyle(boxShape: NeumorphicBoxShape.circle(),shape: NeumorphicShape.convex),
-                  child:
-                     Image.asset('icons/flags/png/kr.png',
+                  style: NeumorphicStyle(
+                      boxShape: NeumorphicBoxShape.circle(),
+                      shape: NeumorphicShape.convex),
+                  child: CircleAvatar(
+                    backgroundImage: AssetImage('icons/flags/png/kr.png',
                         package: 'country_icons'),
-
+                  ),
                 ),
               ),
             ),
@@ -226,11 +228,13 @@ class _CurrencyExchangeWidgetState extends State<CurrencyExchangeWidget> {
                 padding: EdgeInsets.only(right: 5),
                 // color: Colors.white,
                 child: Neumorphic(
-                  style: NeumorphicStyle(boxShape: NeumorphicBoxShape.circle(),shape: NeumorphicShape.convex),
-                  child:
-                  Image.asset('icons/flags/png/kr.png',
-                      package: 'country_icons'),
-
+                  style: NeumorphicStyle(
+                      boxShape: NeumorphicBoxShape.circle(),
+                      shape: NeumorphicShape.convex),
+                  child: CircleAvatar(
+                    backgroundImage: AssetImage('icons/flags/png/us.png',
+                        package: 'country_icons'),
+                  ),
                 ),
               ),
             ),
@@ -248,7 +252,7 @@ class _CurrencyExchangeWidgetState extends State<CurrencyExchangeWidget> {
                       showCurrencyName: true,
                       showCurrencyCode: true,
                       onSelect: (Currency currency) {
-                        print('Select currency: ${currency.name}');
+                        print('Select currency: ${currency.code}');
                       },
                       currencyFilter: <String>[
                         'EUR',

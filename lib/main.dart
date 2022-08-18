@@ -1,11 +1,11 @@
 import 'package:calculator/model/calculator.dart';
 import 'package:calculator/model/currencyexchange.dart';
-import 'package:calculator/pureCalculator/screen_purecalculator.dart';
+import 'package:calculator/screen/pureCalculator/screen_purecalculator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:provider/provider.dart';
 
-import 'currencyExchange/screen_currencyexchange.dart';
+import 'package:calculator/screen/currencyExchange/screen_currencyexchange.dart';
 import 'model/pageData.dart';
 
 void main() {
@@ -20,8 +20,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<Calculator>(
-          create: (context) => Calculator(),
+        ChangeNotifierProvider<PureCalculator>(
+          create: (context) => PureCalculator(),
         ),
         ChangeNotifierProvider<PageData>(
           create: (context) => PageData(),

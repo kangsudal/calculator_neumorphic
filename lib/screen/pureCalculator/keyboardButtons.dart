@@ -11,7 +11,7 @@ class NumberButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return NeumorphicButton(
       onPressed: () {
-        Provider.of<Calculator>(context, listen: false).onKeyTap(value);
+        Provider.of<PureCalculator>(context, listen: false).onKeyTap(value);
       },
       child: Center(
         child: Text(
@@ -38,7 +38,7 @@ class OperatorButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return NeumorphicButton(
       onPressed: () {
-        Provider.of<Calculator>(context, listen: false).onKeyTap(label);
+        Provider.of<PureCalculator>(context, listen: false).onKeyTap(label);
       },
       style: NeumorphicStyle(color: Colors.black),
       child: Center(
@@ -62,7 +62,7 @@ class ClearButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return NeumorphicButton(
       onPressed: () {
-        Provider.of<Calculator>(context, listen: false).onClearPress();
+        Provider.of<PureCalculator>(context, listen: false).onClearPress();
       },
       style: NeumorphicStyle(color: Colors.black),
       child: Center(
@@ -86,7 +86,7 @@ class BackspaceButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return NeumorphicButton(
       onPressed: () {
-        Provider.of<Calculator>(context, listen: false).onBackspacePress();
+        Provider.of<PureCalculator>(context, listen: false).onBackspacePress();
       },
       style: NeumorphicStyle(color: Colors.black),
       child: Center(
@@ -106,7 +106,7 @@ class EqualButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return NeumorphicButton(
       onPressed: () {
-        Provider.of<Calculator>(context, listen: false).equal();
+        Provider.of<PureCalculator>(context, listen: false).equal();
       },
       style: NeumorphicStyle(color: Colors.black),
       child: Center(

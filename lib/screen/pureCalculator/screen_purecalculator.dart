@@ -1,8 +1,8 @@
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:provider/provider.dart';
 
-import '../commonWidget/radioWidget.dart';
-import '../model/calculator.dart';
+import 'package:calculator/screen/commonWidget/radioWidget.dart';
+import 'package:calculator/model/calculator.dart';
 import 'keyboardButtons.dart';
 
 class PureCalculatorWidget extends StatelessWidget {
@@ -53,7 +53,7 @@ class ShowCalculatingWidget extends StatelessWidget {
               child: Align(
                 alignment: Alignment.bottomRight,
                 child: Text(
-                  Provider.of<Calculator>(context).equation,
+                  Provider.of<PureCalculator>(context).equation,
                   style: TextStyle(
                     fontSize: 30,
                     color: Colors.grey,
@@ -67,7 +67,7 @@ class ShowCalculatingWidget extends StatelessWidget {
               child: Align(
                 alignment: Alignment.bottomRight,
                 child: Text(
-                  Provider.of<Calculator>(context).result,
+                  Provider.of<PureCalculator>(context).result,
                   style: TextStyle(
                     fontSize: 40,
                   ),
