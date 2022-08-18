@@ -161,9 +161,8 @@ class _CurrencyExchangeWidgetState extends State<CurrencyExchangeWidget> {
     );
   }
 
-  Container buildInputPanel(BuildContext context) {
-    String dropdownValue = Provider.of<CurrencyExchange>(context).inputCurrency;
-    String inputString = Provider.of<CurrencyExchange>(context).inputString;
+  Container buildResultPanel(BuildContext context) {
+    String resultString = Provider.of<CurrencyExchange>(context).resultString;
     return Container(
       // color: Colors.blueGrey,
       child: Row(
@@ -202,7 +201,7 @@ class _CurrencyExchangeWidgetState extends State<CurrencyExchangeWidget> {
             child: Center(
               child: Container(
                 // color: Colors.red,
-                child: Text(inputString),
+                child: Text(resultString),
               ),
             ),
           ),
@@ -211,10 +210,8 @@ class _CurrencyExchangeWidgetState extends State<CurrencyExchangeWidget> {
     );
   }
 
-  Container buildResultPanel(BuildContext context) {
-    String dropdownValue =
-        Provider.of<CurrencyExchange>(context).resultCurrency;
-    String resultString = Provider.of<CurrencyExchange>(context).resultString;
+  Container buildInputPanel(BuildContext context) {
+    String inputString = Provider.of<CurrencyExchange>(context).inputString;
     return Container(
       // color: Colors.grey,
       child: Row(
@@ -277,7 +274,7 @@ class _CurrencyExchangeWidgetState extends State<CurrencyExchangeWidget> {
             child: Center(
               child: Container(
                 // color: Colors.red,
-                child: Text(resultString),
+                child: Text(inputString),
               ),
             ),
           ),
