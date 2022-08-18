@@ -2,7 +2,7 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:provider/provider.dart';
 
 import 'package:calculator/screen/commonWidget/radioWidget.dart';
-import 'package:calculator/model/calculator.dart';
+import 'package:calculator/provider/calculator.dart';
 import 'keyboardButtons.dart';
 
 class PureCalculatorWidget extends StatelessWidget {

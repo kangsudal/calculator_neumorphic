@@ -1,7 +1,7 @@
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:provider/provider.dart';
 
-import 'package:calculator/model/pageData.dart';
+import 'package:calculator/provider/pageData.dart';
 
 class ModeChangeWidget extends StatefulWidget {
   const ModeChangeWidget({

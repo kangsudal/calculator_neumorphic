@@ -38,6 +38,7 @@ dependencies:
   currency_picker: ^2.0.11
   country_icons: ^2.0.2
   flutter_dotenv: ^5.0.2 #환경변수 .env에 저장
+  http:
 
 dev_dependencies:
   flutter_test:
