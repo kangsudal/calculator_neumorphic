@@ -152,6 +152,23 @@ class _CurrencyExchangeWidgetState extends State<CurrencyExchangeWidget> {
             Expanded(
               child: buildInputPanel(context),
             ),
+            SizedBox(
+              height: 30,
+              width: 30,
+              child: FittedBox(
+                child: FloatingActionButton(
+                  onPressed: () {
+                    Provider.of<CurrencyExchange>(context, listen: false)
+                        .exchangeButtonPressed();
+                  },
+                  child: Icon(
+                    Icons.arrow_downward,
+                    color: Colors.white,
+                  ),
+                  backgroundColor: Colors.black,
+                ),
+              ),
+            ), //환전버튼
             Expanded(
               child: buildResultPanel(context),
             ),

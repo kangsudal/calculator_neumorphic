@@ -11,7 +11,7 @@ class CurrencyExchange with ChangeNotifier {
   String resultString = '0';
 
   // String inputCurrency = 'Dollar AS USD';
-  String resultCurrency = 'SEK';//'USD';
+  String resultCurrency = 'CHF';//'SEK';//'USD';
   /*                    'GBP',
                         'USD',
                         'AUD',
@@ -36,17 +36,17 @@ class CurrencyExchange with ChangeNotifier {
         inputString = inputString + buttonContent;
       }
     }
-    try {
-      Parser p = new Parser();
-      Expression exp = p.parse(inputString);
-
-      ContextModel cm = ContextModel();
-      double eval = exp.evaluate(EvaluationType.REAL, cm);
-      double tempResult = await exchange(eval, resultCurrency);
-      resultString = '$tempResult';
-    } catch (e) {
-      resultString = 'Error';
-    }
+    // try {
+    //   Parser p = new Parser();
+    //   Expression exp = p.parse(inputString);
+    //
+    //   ContextModel cm = ContextModel();
+    //   double eval = exp.evaluate(EvaluationType.REAL, cm);
+    //   double tempResult = await exchange(eval, resultCurrency);
+    //   resultString = '$tempResult';
+    // } catch (e) {
+    //   resultString = 'Error';
+    // }
     notifyListeners();
 
   }
@@ -83,5 +83,23 @@ class CurrencyExchange with ChangeNotifier {
       currencyObjs = dataList.map((json) => CurrencyObj.fromJson(json)).toList();
     }
     return currencyObjs;//객체리스트 반환
+  }
+
+  Future<void> exchangeButtonPressed() async {
+    //화살표 버튼을 눌렀을때 환전 값을 불러오는 메서드
+    //키패드로 숫자를 입력할때마다 콜을 너무 많이 불러오는거같아서 버튼을 넣었음
+    try {
+      Parser p = new Parser();
+      Expression exp = p.parse(inputString);
+
+      ContextModel cm = ContextModel();
+      double eval = exp.evaluate(EvaluationType.REAL, cm);
+      double tempResult = await exchange(eval, resultCurrency);
+      resultString = '$tempResult';
+    } catch (e) {
+      resultString = 'Error';
+    }
+    notifyListeners();
+
   }
 }
