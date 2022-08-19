@@ -212,7 +212,7 @@ class _CurrencyExchangeWidgetState extends State<CurrencyExchangeWidget> {
             child: Container(
               width: double.infinity,
               height: double.infinity,
-              color: Colors.blue,
+              // color: Colors.blue,
               child: Align(alignment: Alignment.center, child: Text('KRW')),
             ),
           ),
@@ -221,7 +221,7 @@ class _CurrencyExchangeWidgetState extends State<CurrencyExchangeWidget> {
             child: Container(
               width: double.infinity,
               height: double.infinity,
-              color: Colors.red,
+              // color: Colors.red,
               child:
                   Align(alignment: Alignment.center, child: Text(resultString)),
             ),
