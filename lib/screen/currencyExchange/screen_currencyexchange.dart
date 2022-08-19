@@ -1,9 +1,10 @@
-import 'package:calculator/model/currencyexchange.dart';
+import 'package:calculator/provider/currencyexchange.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:provider/provider.dart';
-
-import '../commonWidget/radioWidget.dart';
+import 'package:currency_picker/currency_picker.dart';
+import 'package:country_icons/country_icons.dart';
+import 'package:calculator/screen/commonWidget/radioWidget.dart';
 
 class CurrencyExchangeWidget extends StatefulWidget {
   const CurrencyExchangeWidget({Key? key}) : super(key: key);
@@ -13,6 +14,9 @@ class CurrencyExchangeWidget extends StatefulWidget {
 }
 
 class _CurrencyExchangeWidgetState extends State<CurrencyExchangeWidget> {
+  AssetImage _img =
+      AssetImage('icons/flags/png/us.png', package: 'country_icons');
+  String _strCurrency='USD';
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
@@ -151,6 +155,23 @@ class _CurrencyExchangeWidgetState extends State<CurrencyExchangeWidget> {
             Expanded(
               child: buildInputPanel(context),
             ),
+            SizedBox(
+              height: 30,
+              width: 30,
+              child: FittedBox(
+                child: FloatingActionButton(
+                  onPressed: () {
+                    Provider.of<CurrencyExchange>(context, listen: false)
+                        .exchangeButtonPressed();
+                  },
+                  child: Icon(
+                    Icons.arrow_downward,
+                    color: Colors.white,
+                  ),
+                  backgroundColor: Colors.black,
+                ),
+              ),
+            ), //환전버튼
             Expanded(
               child: buildResultPanel(context),
             ),
@@ -160,9 +181,8 @@ class _CurrencyExchangeWidgetState extends State<CurrencyExchangeWidget> {
     );
   }
 
-  Container buildInputPanel(BuildContext context) {
-    String dropdownValue = Provider.of<CurrencyExchange>(context).inputCurrency;
-    String inputString = Provider.of<CurrencyExchange>(context).inputString;
+  Container buildResultPanel(BuildContext context) {
+    String resultString = Provider.of<CurrencyExchange>(context).resultString;
     return Container(
       // color: Colors.blueGrey,
       child: Row(
@@ -175,16 +195,109 @@ class _CurrencyExchangeWidgetState extends State<CurrencyExchangeWidget> {
               child: Container(
                 padding: EdgeInsets.only(right: 5),
                 // color: Colors.white,
-                child: CircleAvatar(),
+                child: Neumorphic(
+                  style: NeumorphicStyle(
+                      boxShape: NeumorphicBoxShape.circle(),
+                      shape: NeumorphicShape.convex),
+                  child: CircleAvatar(
+                    backgroundImage: AssetImage('icons/flags/png/kr.png',
+                        package: 'country_icons'),
+                  ),
+                ),
               ),
             ),
           ),
           Expanded(
             flex: 2,
-            child: Center(
+            child: Container(
+              width: double.infinity,
+              height: double.infinity,
+              // color: Colors.blue,
+              child: Align(alignment: Alignment.center, child: Text('KRW')),
+            ),
+          ),
+          Expanded(
+            flex: 2,
+            child: Container(
+              width: double.infinity,
+              height: double.infinity,
+              // color: Colors.red,
+              child:
+                  Align(alignment: Alignment.center, child: Text(resultString)),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Container buildInputPanel(BuildContext context) {
+    String inputString = Provider.of<CurrencyExchange>(context).inputString;
+    return Container(
+      // color: Colors.grey,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Expanded(
+            flex: 1,
+            child: Align(
+              alignment: Alignment.centerRight,
               child: Container(
-                // color: Colors.blue,
-                child: buildDropdownButton(dropdownValue),
+                padding: EdgeInsets.only(right: 5),
+                // color: Colors.white,
+                child: Neumorphic(
+                  style: NeumorphicStyle(
+                      boxShape: NeumorphicBoxShape.circle(),
+                      shape: NeumorphicShape.convex),
+                  child: CircleAvatar(
+                    backgroundImage: _img,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 2,
+            child: Container(
+              width: double.infinity,
+              height: double.infinity,
+              // color: Colors.blue,
+              child: TextButton(
+                style: ButtonStyle(
+                  // alignment: Alignment.center,
+                  // backgroundColor:
+                  //     MaterialStateProperty.all<Color>(Colors.green),
+                ),
+                onPressed: () {
+                  showCurrencyPicker(
+                    context: context,
+                    showFlag: true,
+                    showCurrencyName: true,
+                    showCurrencyCode: true,
+                    onSelect: (Currency currency) {
+                      print('Select currency: ${currency.code}');
+                      changeIconAndCurrency(currency.code);
+                    },
+                    currencyFilter: <String>[
+                      // 'EUR', TODO: EUR 국기 처리
+                      'GBP',
+                      'USD',
+                      'AUD',
+                      'CAD',
+                      // 'JPY', TODO: 한국수출입은행 JPY(100)에 맞게 처리
+                      'HKD',
+                      'CHF',
+                      'SEK',
+                    ],
+                  );
+                },
+                child: Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    '$_strCurrency',
+                    style: TextStyle(color: Colors.black),
+                  ),
+                ),
               ),
             ),
           ),
@@ -202,56 +315,16 @@ class _CurrencyExchangeWidgetState extends State<CurrencyExchangeWidget> {
     );
   }
 
-  Container buildResultPanel(BuildContext context) {
-    String dropdownValue = Provider.of<CurrencyExchange>(context).resultCurrency;
-    String resultString = Provider.of<CurrencyExchange>(context).resultString;
-    return Container(
-      // color: Colors.grey,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Expanded(
-            flex: 1,
-            child: Align(
-              alignment: Alignment.centerRight,
-              child: Container(
-                padding: EdgeInsets.only(right: 5),
-                // color: Colors.white,
-                child: CircleAvatar(),
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 2,
-            child: Center(
-              child: Container(
-                // color: Colors.blue,
-                child: buildDropdownButton(dropdownValue),
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 2,
-            child: Center(
-              child: Container(
-                // color: Colors.red,
-                child: Text(resultString),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget buildButton(dynamic buttonContent, Color buttonColor, BuildContext context) {
+  Widget buildButton(
+      dynamic buttonContent, Color buttonColor, BuildContext context) {
     return Container(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: NeumorphicButton(
           onPressed: () {
             //inputValue값이 바뀐다
-            Provider.of<CurrencyExchange>(context,listen:false).buttonPressed(buttonContent);
+            Provider.of<CurrencyExchange>(context, listen: false)
+                .buttonPressed(buttonContent);
             //inputValue에 따라 resultValue값도 바뀐다.
           },
           child: buttonContent.runtimeType == IconData
@@ -273,38 +346,60 @@ class _CurrencyExchangeWidgetState extends State<CurrencyExchangeWidget> {
                     ),
                   ),
                 ),
-          style: buttonColor == Colors.black?NeumorphicStyle(color: buttonColor):NeumorphicStyle(),
+          style: buttonColor == Colors.black
+              ? NeumorphicStyle(color: buttonColor)
+              : NeumorphicStyle(),
         ),
       ),
     );
   }
 
-  DropdownButtonHideUnderline buildDropdownButton(String dropdownValue) {
-    List<String> currencyList = ['Dollar AS USD', 'Indonesia IDR', 'Two', 'Free', 'Four'];
-    return DropdownButtonHideUnderline(
-      child: DropdownButton<String>(
-        value: dropdownValue,
-        icon: const Icon(
-          Icons.navigate_next,
-          color: Colors.black,
-        ),
-        elevation: 16,
-        style: const TextStyle(color: Colors.black45),
-        onChanged: (String? newValue) {
-          setState(() {
-            dropdownValue = newValue!;
-          });
-        },
-        items: currencyList
-            .map<DropdownMenuItem<String>>((String value) {
-          return DropdownMenuItem<String>(
-            value: value,
-            child: Text(value),
-          );
-        }).toList(),
-      ),
-    );
+  void changeIconAndCurrency(String code) {
+    switch (code) {
+      case 'USD':
+        setState(() {
+          _img = AssetImage('icons/flags/png/us.png', package: 'country_icons');
+        });
+        break;
+      case 'GBP':
+        setState(() {
+          _img = AssetImage('icons/flags/png/gb.png', package: 'country_icons');
+        });
+        break;
+      case 'AUD':
+        setState(() {
+          _img = AssetImage('icons/flags/png/au.png', package: 'country_icons');
+        });
+        break;
+      case 'CAD':
+        setState(() {
+          _img = AssetImage('icons/flags/png/ca.png', package: 'country_icons');
+        });
+        break;
+      case 'CHF':
+        setState(() {
+          _img = AssetImage('icons/flags/png/ch.png', package: 'country_icons');
+        });
+        break;
+      case 'HKD':
+        setState(() {
+          _img = AssetImage('icons/flags/png/hk.png', package: 'country_icons');
+        });
+        break;
+      case 'SEK':
+        setState(() {
+          _img = AssetImage('icons/flags/png/se.png', package: 'country_icons');
+        });
+        break;
+      default:
+        _img = AssetImage('icons/flags/png/us.png', package: 'country_icons');
+    }
+    //환전 통화를 바꿈
+    Provider.of<CurrencyExchange>(context, listen: false)
+        .changeResultCurrency(code);
+
+    setState((){
+      _strCurrency = code;
+    });
   }
-
-
 }

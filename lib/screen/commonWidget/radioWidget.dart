@@ -1,7 +1,7 @@
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:provider/provider.dart';
 
-import '../model/pageData.dart';
+import 'package:calculator/provider/pageData.dart';
 
 class ModeChangeWidget extends StatefulWidget {
   const ModeChangeWidget({
@@ -19,14 +19,14 @@ class _ModeChangeWidgetState extends State<ModeChangeWidget> {
     return Row(
       children: [
         NeumorphicRadio(
-          groupValue: groupValue,
+          groupValue:
+              groupValue, //The groupValue is the currently selected value for a group of radio buttons.
           value: 0,
           onChanged: (int? value) {
-            setState(() {
-              groupValue = value;
+            if(value != null) {
               Provider.of<PageData>(context, listen: false)
-                  .setPageIndex(value!);
-            });
+                  .setPageIndex(value);
+            }else{}
           },
           padding: EdgeInsets.all(8.0),
           child: Text("Calculator"),
@@ -38,11 +38,10 @@ class _ModeChangeWidgetState extends State<ModeChangeWidget> {
           groupValue: groupValue,
           value: 1,
           onChanged: (int? value) {
-            setState(() {
-              groupValue = value;
+            if(value != null){
               Provider.of<PageData>(context, listen: false)
-                  .setPageIndex(value!);
-            });
+                  .setPageIndex(value);
+            }else{}
           },
           padding: EdgeInsets.all(8.0),
           child: Text("Currency"),
