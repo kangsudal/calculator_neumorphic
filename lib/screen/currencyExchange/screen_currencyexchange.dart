@@ -16,6 +16,7 @@ class CurrencyExchangeWidget extends StatefulWidget {
 class _CurrencyExchangeWidgetState extends State<CurrencyExchangeWidget> {
   AssetImage _img =
       AssetImage('icons/flags/png/us.png', package: 'country_icons');
+  String _strCurrency='USD';
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
@@ -293,7 +294,7 @@ class _CurrencyExchangeWidgetState extends State<CurrencyExchangeWidget> {
                 child: Align(
                   alignment: Alignment.center,
                   child: Text(
-                    'picker',
+                    '$_strCurrency',
                     style: TextStyle(color: Colors.black),
                   ),
                 ),
@@ -396,5 +397,9 @@ class _CurrencyExchangeWidgetState extends State<CurrencyExchangeWidget> {
     //환전 통화를 바꿈
     Provider.of<CurrencyExchange>(context, listen: false)
         .changeResultCurrency(code);
+
+    setState((){
+      _strCurrency = code;
+    });
   }
 }
