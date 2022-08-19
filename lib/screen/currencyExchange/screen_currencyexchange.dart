@@ -14,6 +14,8 @@ class CurrencyExchangeWidget extends StatefulWidget {
 }
 
 class _CurrencyExchangeWidgetState extends State<CurrencyExchangeWidget> {
+  AssetImage _img =
+      AssetImage('icons/flags/png/us.png', package: 'country_icons');
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
@@ -206,20 +208,21 @@ class _CurrencyExchangeWidgetState extends State<CurrencyExchangeWidget> {
           ),
           Expanded(
             flex: 2,
-            child: Center(
-              child: Container(
-                // color: Colors.blue,
-                child: Text('KRW'),
-              ),
+            child: Container(
+              width: double.infinity,
+              height: double.infinity,
+              color: Colors.blue,
+              child: Align(alignment: Alignment.center, child: Text('KRW')),
             ),
           ),
           Expanded(
             flex: 2,
-            child: Center(
-              child: Container(
-                // color: Colors.red,
-                child: Text(resultString),
-              ),
+            child: Container(
+              width: double.infinity,
+              height: double.infinity,
+              color: Colors.red,
+              child:
+                  Align(alignment: Alignment.center, child: Text(resultString)),
             ),
           ),
         ],
@@ -246,8 +249,7 @@ class _CurrencyExchangeWidgetState extends State<CurrencyExchangeWidget> {
                       boxShape: NeumorphicBoxShape.circle(),
                       shape: NeumorphicShape.convex),
                   child: CircleAvatar(
-                    backgroundImage: AssetImage('icons/flags/png/us.png',
-                        package: 'country_icons'),
+                    backgroundImage: _img,
                   ),
                 ),
               ),
@@ -255,33 +257,45 @@ class _CurrencyExchangeWidgetState extends State<CurrencyExchangeWidget> {
           ),
           Expanded(
             flex: 2,
-            child: Center(
-              child: Container(
-                // color: Colors.blue,
-                child: ElevatedButton(
-                  onPressed: () {
-                    showCurrencyPicker(
-                      context: context,
-                      showFlag: true,
-                      showCurrencyName: true,
-                      showCurrencyCode: true,
-                      onSelect: (Currency currency) {
-                        print('Select currency: ${currency.code}');
-                      },
-                      currencyFilter: <String>[
-                        // 'EUR', TODO: EUR 국기 처리
-                        'GBP',
-                        'USD',
-                        'AUD',
-                        'CAD',
-                        // 'JPY', TODO: 한국수출입은행 JPY(100)에 맞게 처리
-                        'HKD',
-                        'CHF',
-                        'SEK',
-                      ],
-                    );
-                  },
-                  child: Text('Show currency picker'),
+            child: Container(
+              width: double.infinity,
+              height: double.infinity,
+              // color: Colors.blue,
+              child: TextButton(
+                style: ButtonStyle(
+                  // alignment: Alignment.center,
+                  // backgroundColor:
+                  //     MaterialStateProperty.all<Color>(Colors.green),
+                ),
+                onPressed: () {
+                  showCurrencyPicker(
+                    context: context,
+                    showFlag: true,
+                    showCurrencyName: true,
+                    showCurrencyCode: true,
+                    onSelect: (Currency currency) {
+                      print('Select currency: ${currency.code}');
+                      changeIconAndCurrency(currency.code);
+                    },
+                    currencyFilter: <String>[
+                      // 'EUR', TODO: EUR 국기 처리
+                      'GBP',
+                      'USD',
+                      'AUD',
+                      'CAD',
+                      // 'JPY', TODO: 한국수출입은행 JPY(100)에 맞게 처리
+                      'HKD',
+                      'CHF',
+                      'SEK',
+                    ],
+                  );
+                },
+                child: Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    'picker',
+                    style: TextStyle(color: Colors.black),
+                  ),
                 ),
               ),
             ),
@@ -337,5 +351,50 @@ class _CurrencyExchangeWidgetState extends State<CurrencyExchangeWidget> {
         ),
       ),
     );
+  }
+
+  void changeIconAndCurrency(String code) {
+    switch (code) {
+      case 'USD':
+        setState(() {
+          _img = AssetImage('icons/flags/png/us.png', package: 'country_icons');
+        });
+        break;
+      case 'GBP':
+        setState(() {
+          _img = AssetImage('icons/flags/png/gb.png', package: 'country_icons');
+        });
+        break;
+      case 'AUD':
+        setState(() {
+          _img = AssetImage('icons/flags/png/au.png', package: 'country_icons');
+        });
+        break;
+      case 'CAD':
+        setState(() {
+          _img = AssetImage('icons/flags/png/ca.png', package: 'country_icons');
+        });
+        break;
+      case 'CHF':
+        setState(() {
+          _img = AssetImage('icons/flags/png/ch.png', package: 'country_icons');
+        });
+        break;
+      case 'HKD':
+        setState(() {
+          _img = AssetImage('icons/flags/png/hk.png', package: 'country_icons');
+        });
+        break;
+      case 'SEK':
+        setState(() {
+          _img = AssetImage('icons/flags/png/se.png', package: 'country_icons');
+        });
+        break;
+      default:
+        _img = AssetImage('icons/flags/png/us.png', package: 'country_icons');
+    }
+    //환전 통화를 바꿈
+    Provider.of<CurrencyExchange>(context, listen: false)
+        .changeResultCurrency(code);
   }
 }

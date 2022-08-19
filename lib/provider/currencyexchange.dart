@@ -102,4 +102,10 @@ class CurrencyExchange with ChangeNotifier {
     notifyListeners();
 
   }
+
+  void changeResultCurrency(String code) {
+    //환전결과 통화 코드 바꾸는 메소드
+    resultCurrency = code;
+    notifyListeners();
+  }
 }
