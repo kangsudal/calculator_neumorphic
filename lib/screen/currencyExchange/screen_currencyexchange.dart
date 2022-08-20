@@ -325,7 +325,6 @@ class _CurrencyExchangeWidgetState extends State<CurrencyExchangeWidget> {
             //inputValue값이 바뀐다
             Provider.of<CurrencyExchange>(context, listen: false)
                 .buttonPressed(buttonContent);
-            //inputValue에 따라 resultValue값도 바뀐다.
           },
           child: buttonContent.runtimeType == IconData
               ? Center(

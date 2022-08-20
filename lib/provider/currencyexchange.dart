@@ -11,7 +11,7 @@ class CurrencyExchange with ChangeNotifier {
   String resultString = '0';
 
   // String inputCurrency = 'Dollar AS USD';
-  String resultCurrency = 'CHF';//'SEK';//'USD';
+  String resultCurrency = 'CHF'; //'SEK';//'USD';
   /*                    'GBP',
                         'USD',
                         'AUD',
@@ -20,7 +20,7 @@ class CurrencyExchange with ChangeNotifier {
                         'CHF',
                         'SEK',*/
 
-  void buttonPressed(dynamic buttonContent) async{
+  void buttonPressed(dynamic buttonContent) async {
     if (buttonContent == "C") {
       inputString = '0';
       resultString = '0';
@@ -36,31 +36,36 @@ class CurrencyExchange with ChangeNotifier {
         inputString = inputString + buttonContent;
       }
     }
-    // try {
-    //   Parser p = new Parser();
-    //   Expression exp = p.parse(inputString);
-    //
-    //   ContextModel cm = ContextModel();
-    //   double eval = exp.evaluate(EvaluationType.REAL, cm);
-    //   double tempResult = await exchange(eval, resultCurrency);
-    //   resultString = '$tempResult';
-    // } catch (e) {
-    //   resultString = 'Error';
-    // }
     notifyListeners();
-
   }
 
-  Future<double> exchange(double eval, String resultCurrency) async{
-    double tts=0;//전신환(송금)보내실때 환율
+  Future<void> exchangeButtonPressed() async {
+    //화살표 버튼을 눌렀을때 환전 값을 불러오는 메서드
+    //키패드로 숫자를 입력할때마다 콜을 너무 많이 불러오는거같아서 버튼을 넣었음
+    try {
+      Parser p = new Parser();
+      Expression exp = p.parse(inputString);
+
+      ContextModel cm = ContextModel();
+      double eval = exp.evaluate(EvaluationType.REAL, cm);
+      double tempResult = await exchange(eval, resultCurrency);
+      resultString = '$tempResult';
+    } catch (e) {
+      resultString = 'Error';
+    }
+    notifyListeners();
+  }
+
+  Future<double> exchange(double eval, String resultCurrency) async {
+    double tts = 0; //전신환(송금)보내실때 환율
     //환전로직
     List<CurrencyObj> currencyObjs = await getCurrencies(); //모든 통화코드의 객체를 가져온다
     var currentObj = currencyObjs.firstWhere((obj) {
-      return obj.cur_unit == resultCurrency;//결과 값으로 보여줄 통화코드와 일치하는 객체(데이터) 리턴
+      return obj.cur_unit == resultCurrency; //결과 값으로 보여줄 통화코드와 일치하는 객체(데이터) 리턴
     });
     print(currentObj);
     // double tts = double.parse(currentObj.tts);
-    String tts_str = currentObj.tts.replaceAll(',', '');//'1,350'->'1350'
+    String tts_str = currentObj.tts.replaceAll(',', ''); //'1,350'->'1350'
     tts = double.parse(tts_str);
     print(tts.runtimeType);
     return eval * tts;
@@ -80,27 +85,10 @@ class CurrencyExchange with ChangeNotifier {
       String jsonString = response.body;
       // print(jsonString);
       List<dynamic> dataList = json.decode(jsonString);
-      currencyObjs = dataList.map((json) => CurrencyObj.fromJson(json)).toList();
+      currencyObjs =
+          dataList.map((json) => CurrencyObj.fromJson(json)).toList();
     }
-    return currencyObjs;//객체리스트 반환
-  }
-
-  Future<void> exchangeButtonPressed() async {
-    //화살표 버튼을 눌렀을때 환전 값을 불러오는 메서드
-    //키패드로 숫자를 입력할때마다 콜을 너무 많이 불러오는거같아서 버튼을 넣었음
-    try {
-      Parser p = new Parser();
-      Expression exp = p.parse(inputString);
-
-      ContextModel cm = ContextModel();
-      double eval = exp.evaluate(EvaluationType.REAL, cm);
-      double tempResult = await exchange(eval, resultCurrency);
-      resultString = '$tempResult';
-    } catch (e) {
-      resultString = 'Error';
-    }
-    notifyListeners();
-
+    return currencyObjs; //객체리스트 반환
   }
 
   void changeResultCurrency(String code) {
