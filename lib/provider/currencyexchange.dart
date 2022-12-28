@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:calculator/model/currencyObj.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart' as de;
+import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:math_expressions/math_expressions.dart';
 
@@ -77,7 +78,7 @@ class CurrencyExchange with ChangeNotifier {
     String? APIKEY = de.dotenv.env['APIKEY'];
     Uri url = Uri.parse(
         'https://www.koreaexim.go.kr/site/program/financial/exchangeJSON?authkey=$APIKEY&searchdate=&data=AP01');
-    Response response = await get(url);
+    Response response = await http.get(url);
     //todo: 비영업일의 데이터, 혹은 영업당일 11시 이전에 해당일의 데이터를 요청할 경우 null 값이 반환되는것 처리
 
     if (response.statusCode == 200) {
