@@ -52,7 +52,8 @@ class CurrencyExchange with ChangeNotifier {
       double tempResult = await exchange(eval, resultCurrency);
       resultString = '$tempResult';
     } catch (e) {
-      resultString = 'Error';
+      resultString = 'Error: $e';
+      print("Error: $e");
     }
     notifyListeners();
   }
@@ -76,9 +77,12 @@ class CurrencyExchange with ChangeNotifier {
     //한국수출입은행이 제공하는 환율정보를 가져오는 메소드. 받아온 JSON데이터를 CurrencyObj 객체에 담는다
     List<CurrencyObj> currencyObjs = [];
     String? APIKEY = de.dotenv.env['APIKEY'];
-    Uri url = Uri.parse(
-        'https://www.koreaexim.go.kr/site/program/financial/exchangeJSON?authkey=$APIKEY&searchdate=&data=AP01');
-    Response response = await http.get(url);
+    var uri = Uri.https(
+        'www.koreaexim.go.kr',
+        'site/program/financial/exchangeJSON',
+        {'authkey': APIKEY, 'data': 'AP01', 'searchdate': ''});
+
+    Response response = await http.get(uri);
     //todo: 비영업일의 데이터, 혹은 영업당일 11시 이전에 해당일의 데이터를 요청할 경우 null 값이 반환되는것 처리
 
     if (response.statusCode == 200) {
