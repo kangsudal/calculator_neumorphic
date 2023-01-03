@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:provider/provider.dart';
 import 'package:currency_picker/currency_picker.dart';
-import 'package:country_icons/country_icons.dart';
+// import 'package:country_icons/country_icons.dart';
 import 'package:calculator/screen/commonWidget/radioWidget.dart';
 
 class CurrencyExchangeWidget extends StatefulWidget {
@@ -14,9 +14,8 @@ class CurrencyExchangeWidget extends StatefulWidget {
 }
 
 class _CurrencyExchangeWidgetState extends State<CurrencyExchangeWidget> {
-  AssetImage _img =
-      AssetImage('icons/flags/png/us.png', package: 'country_icons');
-  String _strCurrency='USD';
+  Image _img = Image.asset('icons/currency/usd.png', package: 'currency_icons');
+  String _strCurrency = 'USD';
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
@@ -200,8 +199,9 @@ class _CurrencyExchangeWidgetState extends State<CurrencyExchangeWidget> {
                       boxShape: NeumorphicBoxShape.circle(),
                       shape: NeumorphicShape.convex),
                   child: CircleAvatar(
-                    backgroundImage: AssetImage('icons/flags/png/kr.png',
-                        package: 'country_icons'),
+                    child: Image.asset('icons/currency/krw.png',
+                        package: 'currency_icons'),
+                    backgroundColor: Colors.white,
                   ),
                 ),
               ),
@@ -250,7 +250,8 @@ class _CurrencyExchangeWidgetState extends State<CurrencyExchangeWidget> {
                       boxShape: NeumorphicBoxShape.circle(),
                       shape: NeumorphicShape.convex),
                   child: CircleAvatar(
-                    backgroundImage: _img,
+                    child: _img,
+                    backgroundColor: Colors.white,
                   ),
                 ),
               ),
@@ -264,10 +265,10 @@ class _CurrencyExchangeWidgetState extends State<CurrencyExchangeWidget> {
               // color: Colors.blue,
               child: TextButton(
                 style: ButtonStyle(
-                  // alignment: Alignment.center,
-                  // backgroundColor:
-                  //     MaterialStateProperty.all<Color>(Colors.green),
-                ),
+                    // alignment: Alignment.center,
+                    // backgroundColor:
+                    //     MaterialStateProperty.all<Color>(Colors.green),
+                    ),
                 onPressed: () {
                   showCurrencyPicker(
                     context: context,
@@ -354,50 +355,14 @@ class _CurrencyExchangeWidgetState extends State<CurrencyExchangeWidget> {
   }
 
   void changeIconAndCurrency(String code) {
-    switch (code) {
-      case 'USD':
-        setState(() {
-          _img = AssetImage('icons/flags/png/us.png', package: 'country_icons');
-        });
-        break;
-      case 'GBP':
-        setState(() {
-          _img = AssetImage('icons/flags/png/gb.png', package: 'country_icons');
-        });
-        break;
-      case 'AUD':
-        setState(() {
-          _img = AssetImage('icons/flags/png/au.png', package: 'country_icons');
-        });
-        break;
-      case 'CAD':
-        setState(() {
-          _img = AssetImage('icons/flags/png/ca.png', package: 'country_icons');
-        });
-        break;
-      case 'CHF':
-        setState(() {
-          _img = AssetImage('icons/flags/png/ch.png', package: 'country_icons');
-        });
-        break;
-      case 'HKD':
-        setState(() {
-          _img = AssetImage('icons/flags/png/hk.png', package: 'country_icons');
-        });
-        break;
-      case 'SEK':
-        setState(() {
-          _img = AssetImage('icons/flags/png/se.png', package: 'country_icons');
-        });
-        break;
-      default:
-        _img = AssetImage('icons/flags/png/us.png', package: 'country_icons');
-    }
+    setState(() {
+      _img = Image.asset('icons/currency/$code.png', package: 'currency_icons');
+    });
     //환전 통화를 바꿈
     Provider.of<CurrencyExchange>(context, listen: false)
         .changeResultCurrency(code);
 
-    setState((){
+    setState(() {
       _strCurrency = code;
     });
   }

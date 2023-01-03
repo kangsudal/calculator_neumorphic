@@ -36,7 +36,8 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   currency_picker: ^2.0.11
-  country_icons: ^2.0.2
+#  country_icons: ^2.0.2
+  currency_icons: ^0.3.0
   flutter_dotenv: ^5.0.2 #환경변수 .env에 저장
   http: ^0.13.5
 
