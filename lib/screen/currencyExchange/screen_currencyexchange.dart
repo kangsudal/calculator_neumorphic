@@ -356,7 +356,7 @@ class _CurrencyExchangeWidgetState extends State<CurrencyExchangeWidget> {
 
   void changeIconAndCurrency(String code) {
     setState(() {
-      _img = Image.asset('icons/currency/$code.png', package: 'currency_icons');
+      _img = Image.asset('icons/currency/${code.toLowerCase()}.png', package: 'currency_icons');
     });
     //환전 통화를 바꿈
     Provider.of<CurrencyExchange>(context, listen: false)
