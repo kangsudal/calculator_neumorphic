@@ -9,10 +9,12 @@
 ## 구현영상
 ![Android Emulator - calculator 2022-08-11 16-55-41 mp4_20220811_171839](https://user-images.githubusercontent.com/32862869/184093161-08b29940-fb2f-43b6-8cba-19bd74accf7a.gif) 
 
-### 사용 라이브러리
-**계산기**
-
-**환율계산기**
+  ### 사용 라이브러리
+  **계산기**
+    `flutter_neumorphic`,`math_expressions`,
+    
+  **환율계산기**
+   `currency_picker`,`currency_icons`,`provider`,`flutter_dotenv`,`http`
 
 ## Web app
 http://calculator-neumorphic-aa62d.firebaseapp.com/
