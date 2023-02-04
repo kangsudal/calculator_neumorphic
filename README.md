@@ -1,13 +1,23 @@
 # 계산기&환율계산기  
+**목표**: https://dribbble.com/shots/14734566-Calculator-App 를 flutter로 구현하기
+
+**데이터**: [한국수출입은행 OpenAPI](https://www.koreaexim.go.kr/ir/HPHKIR020M01?apino=2&viewtype=C&searchselect=&searchword=)
+
+**프레임워크**: Flutter
 
 
-### 계산기  
+## 구현영상
+![Android Emulator - calculator 2022-08-11 16-55-41 mp4_20220811_171839](https://user-images.githubusercontent.com/32862869/184093161-08b29940-fb2f-43b6-8cba-19bd74accf7a.gif) 
 
-![Android Emulator - calculator 2022-08-11 16-55-41 mp4_20220811_171839](https://user-images.githubusercontent.com/32862869/184093161-08b29940-fb2f-43b6-8cba-19bd74accf7a.gif)  
+### 사용 라이브러리
+**계산기**
 
-### 환율계산기  
+**환율계산기**
+
+## Web app
+http://calculator-neumorphic-aa62d.firebaseapp.com/
+
+### XMLHttpError란
 
 
-https://kangsudal.tistory.com/entry/%EA%B3%84%EC%82%B0%EA%B8%B0%ED%99%98%EC%9C%A8%EA%B3%84%EC%82%B0%EA%B8%B0
-
-https://medium.com/@kangsudal/%EA%B3%84%EC%82%B0%EA%B8%B0-%EB%A7%8C%EB%93%A4%EA%B8%B0-8ed9d40676f4
+## 프로젝트 구조
