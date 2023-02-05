@@ -44,6 +44,7 @@ http://calculator-neumorphic-aa62d.firebaseapp.com/
 
   ### 이슈
   **XMLHttpError**:
+  CORS 정책으로 인해 모바일 버전에서만 환율 정보를 가져올 수 있습니다.
   
   **OpenAPI 이용시 제약사항**:
   비영업일의 데이터, 혹은 영업당일 11시 이전에 해당일의 데이터를 요청할 경우 null 값이 반환
