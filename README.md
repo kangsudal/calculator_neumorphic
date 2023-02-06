@@ -17,19 +17,25 @@
   **환율계산기**
    `currency_picker`,`currency_icons`,`provider`,`flutter_dotenv`,`http`
 
-   `flutter_neumorphic`:
+   `flutter_neumorphic`: Neumorphic UI 키트
    
-   `math_expressions`:
+   `math_expressions`: 수식을 parsing하고 계산하기
    
-   `currency_picker`:
+   `currency_picker`: 통화를 변화시킬때 선택할 목록을 bottom sheet로 보여줌
    
-   `currency_icons`:
+   `currency_icons`: currency_picker에서 선택한 통화에 따라 이미지를 circleAvatar에 나타냄
    
-   `provider`:
+   `provider`: 
    
-   `flutter_dotenv`:
+    1. PureCalculator: 키패드 버튼이 눌리면 String 수식 -> math_expressions라이브러리-> double 계산 결과값
+    
+    2. PageData: 일반 Calculator와 환율 Calculator 화면 전환 상태
+    
+    3. CurrencyExchange: 환전버튼(↓)이 눌릴때 필요한 입력값(inputString)과 환전통화 종류(resultCurrency), 그 결과값 상태를 관리하여 화면에 보여줌
    
-   `http`:
+   `flutter_dotenv`: api key를 숨깁니다
+   
+   `http`: 한국수출입은행 api를 통해 환율 데이터를 json 형태로를 받아옴
    
   ### 코드 실행방법
   1. https://www.koreaexim.go.kr/ir/HPHKIR020M01?apino=2&viewtype=C&searchselect=&searchword=에서 생성한 api key가 필요합니다.
