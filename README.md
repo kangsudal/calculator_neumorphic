@@ -8,6 +8,8 @@
 <br/>
 
 ## 구현영상
+https://blog.naver.com/kangsudal-dev/223006711870
+<br/>
 <br/>
 
 ## 사용 라이브러리
