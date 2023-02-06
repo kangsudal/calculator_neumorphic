@@ -50,11 +50,11 @@ https://blog.naver.com/kangsudal-dev/223006711870
 ## Web app
 http://calculator-neumorphic-aa62d.firebaseapp.com/
 
-  ### 이슈
-  **XMLHttpError**
+## 이슈
+**XMLHttpError**: Web app 에서 환전 기능이 작동안함. 모바일 app, 에뮬레이터에서만 작동함
   
-  **OpenAPI 이용시 제약사항**:
-  비영업일의 데이터, 혹은 영업당일 11시 이전에 해당일의 데이터를 요청할 경우 null 값이 반환
+**OpenAPI 이용시 제약사항**:
+비영업일의 데이터, 혹은 영업당일 11시 이전에 해당일의 데이터를 요청할 경우 null 값이 반환
 
 <br/>
 <br/>
@@ -63,5 +63,5 @@ http://calculator-neumorphic-aa62d.firebaseapp.com/
 코드 흐름도: https://docs.google.com/presentation/d/1tv-UOyDCG1kM_482ij5yfkAJOa8QlwH5toJGFGwm83w/edit#slide=id.g144de996576_0_0
 
 
-##제일 많이 도움받은 영상
+## 제일 많이 도움받은 영상
 https://www.youtube.com/watch?v=l4bLPfS1uik&list=PL4nLX9pdXUwTK-w_PM5UGbftKxNn1ffYR&index=26
