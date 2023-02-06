@@ -12,7 +12,7 @@ class CurrencyExchange with ChangeNotifier {
   String resultString = '0';
 
   // String inputCurrency = 'Dollar AS USD';
-  String resultCurrency = 'CHF'; //'SEK';//'USD';
+  String resultCurrency = 'USD';
   /*                    'GBP',
                         'USD',
                         'AUD',
@@ -81,6 +81,7 @@ class CurrencyExchange with ChangeNotifier {
         'www.koreaexim.go.kr',
         'site/program/financial/exchangeJSON',
         {'authkey': APIKEY, 'data': 'AP01', 'searchdate': ''});
+    print(uri);
 
     Response response = await http.get(uri);
     //todo: 비영업일의 데이터, 혹은 영업당일 11시 이전에 해당일의 데이터를 요청할 경우 null 값이 반환되는것 처리
